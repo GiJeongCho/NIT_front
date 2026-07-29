@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NIT train — 학습 파이프라인 콘솔</title>
+  <link rel="stylesheet" href="./assets/css/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/videos">NIT<em>train</em></a>
+
+    <nav class="tabs" id="tabs">
+      <a href="#/videos"   data-tab="videos">1 · 영상</a>
+      <a href="#/segments" data-tab="segments">2 · 구간</a>
+      <a href="#/label"    data-tab="label">3 · 라벨링</a>
+      <a href="#/datasets" data-tab="datasets">4 · 데이터셋</a>
+      <a href="#/train"    data-tab="train">5 · 학습</a>
+      <a href="#/models"   data-tab="models">6 · 모델</a>
+    </nav>
+
+    <div class="topbar-right">
+      <button class="chip" id="video-chip" title="작업 중인 영상">영상 미선택</button>
+      <button class="chip" id="server-chip" title="API 서버 상태">연결 중…</button>
+    </div>
+  </header>
+
+  <main id="view" class="view"><div class="loading">불러오는 중…</div></main>
+
+  <div id="toasts" class="toasts"></div>
+
+  <dialog id="server-dlg" class="dlg">
+    <form method="dialog">
+      <h3>API 서버</h3>
+      <p class="muted">
+        학습 API(<code>NIT_train</code>)의 주소다. 다른 호스트에서 돌린다면 여기서 바꾼다.
+        값은 브라우저에 저장된다.
+      </p>
+      <label>주소
+        <input type="text" id="api-base-input" placeholder="http://127.0.0.1:8888" />
+      </label>
+      <div class="dlg-meta" id="server-meta"></div>
+      <div class="dlg-actions">
+        <button value="cancel" class="btn ghost">닫기</button>
+        <button value="save" class="btn primary" id="api-base-save">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="./assets/js/app.js"></script>
+</body>
+</html>
