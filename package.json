@@ -1,0 +1,11 @@
+{
+  "name": "nit-train-front",
+  "private": true,
+  "version": "1.0.0",
+  "description": "NIT_train 학습 파이프라인 콘솔 (빌드 없는 ES 모듈 SPA)",
+  "type": "module",
+  "scripts": {
+    "test": "node test/obb.test.js",
+    "check": "node --check assets/js/app.js"
+  }
+}

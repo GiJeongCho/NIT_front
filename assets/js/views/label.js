@@ -14,22 +14,7 @@
  */
 
 import { api } from '../api.js';
-import {
-  $,
-  badge,
-  bar,
-  classColor,
-  clamp,
-  confirmAction,
-  esc,
-  fail,
-  fmtSec,
-  ok,
-  on,
-  pct,
-  statusBadge,
-  toast,
-} from '../util.js';
+import { $, bar, classColor, clamp, confirmAction, esc, fail, fmtSec, ok, on, pct, toast } from '../util.js';
 import {
   angleFromHandle,
   cornersOf,

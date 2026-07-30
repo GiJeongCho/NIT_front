@@ -6,8 +6,11 @@
  * 토스트에 사람이 읽을 수 있는 이유가 뜨게 한다.
  */
 
+import { INJECTED_API_BASE } from './api-base.js';
+
 const API_KEY = 'nit_train.api_base';
-const DEFAULT_BASE = `${location.protocol}//${location.hostname}:8888`;
+// 배포 시 심은 값 → 없으면 프런트를 서빙한 호스트의 8888 포트.
+const DEFAULT_BASE = INJECTED_API_BASE || `${location.protocol}//${location.hostname}:8888`;
 
 let base = (localStorage.getItem(API_KEY) || DEFAULT_BASE).replace(/\/+$/, '');
 

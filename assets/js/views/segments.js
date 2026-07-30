@@ -123,9 +123,14 @@ export async function render(view, params, app) {
               <input type="number" id="ex-imgsz" step="32" min="32" value="640" />
             </label>
           </div>
-          <label>가중치
+          <label>초안 생성 가중치
             <select id="ex-model"><option value="">기본 (서버 설정)</option></select>
           </label>
+          <div class="note" style="margin-top:8px">
+            사전학습 가중치(COCO·DOTA)는 <b>탑다운 드론 영상의 작은 표적을 거의 못 잡는다.</b>
+            초안이 0개로 나오면 정상이다. 이때는 ① 기존 데이터셋으로 한 번 학습해 승격한 뒤
+            그 모델(<code>promoted</code>)을 여기서 고르거나, ② 라벨링 화면에서 직접 박스를 그린다.
+          </div>
           <div class="field-row" style="margin-top:8px">
             <label class="row tight" style="align-items:center">
               <input type="checkbox" id="ex-track" checked />
@@ -438,11 +443,20 @@ export async function render(view, params, app) {
         if (!disposed) renderJob(j);
       });
       if (final.status === 'done') {
-        const n = (final.result && final.result.frames) || final.done;
-        ok(`추출 완료: ${n}장 — 라벨링으로 넘어가세요`);
+        const res = final.result || {};
+        ok(`추출 완료: ${res.frames_written ?? final.done}장 · 객체 ${res.objects ?? 0}개 · 트랙 ${
+          res.tracks ?? 0
+        }개`);
+        if (!res.objects) {
+          toast(
+            `자동 초안이 0개입니다 (${res.model}). 이 가중치는 이 영상의 표적을 모릅니다 — ` +
+              '라벨링 화면에서 직접 그리거나, 학습·승격한 모델로 다시 추출하세요.',
+            'bad',
+          );
+        }
         setTimeout(() => {
           if (!disposed) location.hash = `#/label/${videoId}`;
-        }, 900);
+        }, 1200);
       } else if (final.status === 'error') {
         fail('추출', new Error(final.error || '알 수 없는 오류'));
       }
